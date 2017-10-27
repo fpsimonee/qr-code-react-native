@@ -4434,6 +4434,10 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-barcodescanner@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-barcodescanner/-/react-native-barcodescanner-3.1.1.tgz#99cdc4e89caac8ac6d5fd844fb6b72b9c4485928"
+
 react-native-branch@2.0.0-beta.3:
   version "2.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"

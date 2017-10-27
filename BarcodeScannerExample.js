@@ -1,38 +1,52 @@
 import {BarCodeScanner, Permissions} from 'expo';
 import React from 'react';
 import {Alert, StyleSheet, Text, View} from 'react-native';
-import { NavigationActions } from 'react-navigation';
+// import { NavigationActions } from 'react-navigation';
+
+import BarcodeScanner from 'react-native-barcodescanner';
+
+
 
 import HomeScreen from './HomeScreen';
 
 export default class BarcodeScannerExample extends React.Component {
-  state = {hasCameraPermission: null, qrCode: null}
+  
+
+  static navigationOptions = {
+    title: 'HomeScreen',
+  };
+  
+  state = { hasCameraPermission: null, qrCode: null };
 
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({hasCameraPermission: status === 'granted'});
   }
 
+  // _handlePress() {
+  //   // const {navigate} = this.props.navigation;
+  //   NavigationActions.navigate('HomeScreen')
+  //   // this.props.navigation.navigate(
+  //   //     'HomeScreen');
+  // }
+
   _handleBarCodeRead = ({type, data}) => {
-    const {navigate} = this.props.navigation;
     Alert.alert(
-        'Alert Title',
+        'Qr Code Read',
         `Bar code with type ${type} and data ${data} has been scanned!`, [{
           text: 'Teste',
           onPress: () => {
-            NavigationActions.navigate('HomeScreen')
+            navigate('HomeScreen')
           }
-        }],
-        {cancelable: true});
-    this.setState({
-      qrCode: data
-    });
+        }]);
+    this.setState({ qrCode: data });
     console.log(this.state.qrCode);
   };
 
+
+
   render() {
     const {navigate} = this.props.navigation;
-
     const { hasCameraPermission } = this.state;
 
     if (hasCameraPermission === null) {
@@ -41,16 +55,35 @@ export default class BarcodeScannerExample extends React.Component {
       return <Text>No access to camera</Text>;
     } else {
       return (
-        <View style={{ flex: 1 }}>
-          <BarCodeScanner
+        <View style={styles.container}>
+          <BarCodeScanner 
+            nav={navigate}  
             onBarCodeRead={this._handleBarCodeRead}
-            style={StyleSheet.absoluteFill}
+            style={styles.camera}
+            barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
           />
         </View>
       );
     }
   }
 
-
 }
 
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  camera: {
+    height: 300,
+    width: 300,
+    margin: 40,
+    padding: 30,
+    shadowColor: '#000',
+    shadowOpacity: 1,
+    borderColor: '#fff'
+  }
+});

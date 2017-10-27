@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import { TabNavigator} from 'react-navigation';
+import {TabNavigator} from 'react-navigation';
 
 import BarCode from './BarcodeScannerExample';
 import HomeScreen from './HomeScreen';
@@ -12,5 +12,6 @@ const App =
         labelStyle: {fontSize: 16, fontWeight: '600'}
       }
     });
+
 
 export default App;
